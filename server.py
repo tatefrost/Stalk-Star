@@ -9,6 +9,7 @@ from model import User, Artist, Follows, connect_to_db, db
 
 app = Flask(__name__)
 
+# this is required to use Flask sessions and the debug toolbar
 app.secret_key = "ABC"
 
 app.jinja_env.undefined = StrictUndefined
@@ -57,11 +58,12 @@ def add_artist():
 
 
 if __name__ == "__main__":
+    # Must set debug=True for when DebugToolbarExtension is invoked 
     app.debug = True
 
     app.jinja_env.auto_reload = app.debug
 
-
+    # assure templates, etc. are not cached in debug mode
     DebugToolbarExtension(app)
 
     app.run(port=5000, host='0.0.0.0')
