@@ -12,8 +12,8 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    email = db.Column(db.String(64), nullable=True)
-    password = db.Column(db.String(64), nullable=True)
+    email = db.Column(db.String(64), nullable=False)
+    password = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -28,7 +28,7 @@ class Artist(db.Model):
 
     artist_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     artist_name = db.Column(db.String(64), nullable=False)
-    artist_previous_song = db.Column(db.String(200), nullable=False)
+    artist_previous_song = db.Column(db.String(200), nullable=True)
 
     def __repr__(self):
 
@@ -45,7 +45,7 @@ class Follows(db.Model):
     artist_id = db.Column(db.Integer, db.ForeignKey('artists.artist_id'))
 
     user = db.relationship("User", backref=db.backref("stalk-star", order_by=artist_id))
-    
+
     artist = db.relationship("Artist", backref=db.backref("stalk-star", order_by=artist_id))
 
     def __repr__(self):
