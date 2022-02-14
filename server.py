@@ -22,14 +22,31 @@ def index():
     return render_template("landingpage.html")
 
 
-@app.route('/signup')
+@app.route('/signup', methods=['GET'])
 def signup():
-    """Sign up for Stalk-Star page"""
+    """Sign up form for a Stalk-Star account"""
 
     return render_template("signup.html")
 
 
-@app.route('/signin')
+@app.route('/signup', methods=['POST'])
+def signingup():
+    """Sign up for Stalk-Star account submit"""
+
+    user_name = request.form["name"]
+    email = request.form["email"]
+    password = request.form["password"]
+
+    new_user = User(user_name=user_name, email=email, password=password)
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    flash(f"User {email} added!")
+    return redirect("/home")
+
+
+@app.route('/signin', methods=["GET"])
 def signin():
     """Sign into user Stalk-Star page"""
 
