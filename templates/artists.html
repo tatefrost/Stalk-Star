@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Your Artists:</h1>
+
+<h3>Search:</h3>
+<form action="" method="POST">
+
+  <div>
+    <input type="filter" name="filter">
+  </div>
+
+  <div>
+    <input type="submit" value="filter_artists">
+  </div>
+
+</form>
+
+<div id="artists_list">
+
+</div>
+
+<p><a href="/homepage">Back</a></p>
+<p><a href="/add_artist">Add</a></p>
+
+{% endblock %}
