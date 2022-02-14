@@ -57,6 +57,13 @@ def add_artist():
     return render_template("add-artists.html")
 
 
+@app.route('/about')
+def about():
+    """Information about Stalk-Star"""
+
+    return render_template("about.html")
+
+
 if __name__ == "__main__":
     # Must set debug=True for when DebugToolbarExtension is invoked 
     app.debug = True
