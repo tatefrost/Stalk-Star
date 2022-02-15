@@ -71,7 +71,7 @@ def artists():
 def add_artist():
     """Follow new artists"""
 
-    return render_template("add-artists.html")
+    return render_template("add-artist.html")
 
 
 @app.route('/about')
