@@ -97,23 +97,30 @@ def home():
         return render_template("homepage.html")
 
 
-@app.route('/artists', methods=["GET"])
-def artists():
+@app.route('/artists/<int:user_id>', methods=["GET"])
+def artists(user_id):
         """View all artists user follows"""
 
-        return render_template("artists.html")
+        user_id = User.query.get(user_id)
+        artists = Follows.query.filter_by(user_id=user_id)
+
+        return render_template("artists.html", artists=artists)
 
 
-@app.route('/add-artist', methods=["GET"])
-def add_artist():
+@app.route('/add-artist/<int:user_id>', methods=["GET"])
+def add_artist(user_id):
         """Follow new artists page form"""
+
+        user_id = User.query.get(user_id)
 
         return render_template("add-artist.html")
 
 
-@app.route('/add-artist', methods=["POST"])
-def add_artist_submit():
+@app.route('/add-artist/<int:user_id>', methods=["POST"])
+def add_artist_submit(user_id):
         """Submit follow new artists page form"""
+
+        user_id = User.query.get(user_id)
 
         return redirect("/artists")
 
