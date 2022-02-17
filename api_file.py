@@ -57,15 +57,15 @@ def latest_song(artist):
         return title
 
 
-def check_db(name):
+def check_db(artist_name):
         """Check if the artist is in the database, if not it will search them on Youtube and add them"""
 
         # Sort through database for matching artist name
-        artist_db_name = Artist.query.filter_by(artist_name=name).first()
+        artist_db_name = Artist.query.filter_by(artist_name=artist_name).first()
 
         if not artist_db_name:
                 print("No artist found, searching youtube")
-                search = search_artist(str(name))
+                search = search_artist(str(artist_name))
                 parse = parse_name_id(str(search))
                 latest = latest_song(str(parse))
 
