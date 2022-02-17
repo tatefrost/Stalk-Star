@@ -28,11 +28,12 @@ class Artist(db.Model):
 
     artist_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     artist_name = db.Column(db.String(64), nullable=False)
+    artist_youtube_id = db.Column(db.String(), nullable=True)
     artist_previous_song = db.Column(db.String(200), nullable=True)
 
     def __repr__(self):
 
-        return f"<Artist artist_id={self.artist_id} name={self.artist_name} previous_song={self.artist_previous_song}>"
+        return f"<Artist artist_id={self.artist_id} name={self.artist_name} artist_youtube_id ={self.artist_youtube_id} previous_song={self.artist_previous_song}>"
 
 
 class Follows(db.Model):
