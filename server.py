@@ -42,15 +42,25 @@ def signingup():
     db.session.add(new_user)
     db.session.commit()
 
-    flash(f"User {email} added!")
+    flash(f"User {email} added")
     return redirect("/home")
 
 
 @app.route('/signin', methods=["GET"])
 def signin():
-    """Sign into user Stalk-Star page"""
+    """Render sign into user Stalk-Star page"""
 
     return render_template("signin.html")
+
+
+@app.route('/signin', methods=["POST"])
+def signin():
+    """Submit sign into user Stalk-Star page"""
+    email = request.form["email"]
+    password = request.form["password"]
+
+    flash(f"{email} signed in")
+    return redirect("/home")
 
 
 @app.route('/home')

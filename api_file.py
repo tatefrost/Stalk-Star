@@ -92,8 +92,10 @@ def update_database_latest_songs():
 
 
 if __name__ == "__main__":
+        # connect_to_db(app)
+
         # V V V test functions V V V
-        artist = search_artist("Eagles")
+        artist = search_artist("Drake")
         parse = parse_name_id(str(artist))
         latest = latest_song(str(parse))
         print(latest)
