@@ -1,13 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Add artists:</h1>
+<p><a href="/artists/{{ user.user_id }}">Back ⬅️</a></p>
 
-<p><a href="/artists">GO</a></p>
+<h1>Add artists 🎵</h1>
+
+<h3>Search:</h3>
+<form action="" method="POST">
+
+  <div>
+    <input type="filter" name="filter">
+  </div>
+
+  <div>
+    <input type="submit" value="Add">
+    <input type="submit" value="Save">
+  </div>
+
+</form>
 
 <form action="add" method="POST">
 
-
+  <div id="artists_list">
+    <ul>
+    {% for artist in artists %}
+      <li>
+        {{ artist.artist_name }}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  
 </form>
 
 {% endblock %}

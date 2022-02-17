@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Your Artists:</h1>
+<p><a href="/home">Back ⬅️</a></p>
+
+<h1>Your Artists 🎵</h1>
 
 <h3>Search:</h3>
 <form action="" method="POST">
@@ -11,16 +13,22 @@
   </div>
 
   <div>
-    <input type="submit" value="filter_artists">
+    <input type="submit" value="GO">
+    <input type="submit" value="Save">
   </div>
 
 </form>
 
 <div id="artists_list">
-
+  <ul>
+  {% for artist in artists %}
+    <li>
+      {{ artist.artist_name }}
+    </li>
+    {% endfor %}
+  </ul>
 </div>
 
-<p><a href="/homepage">Back</a></p>
-<p><a href="/add_artist">Add</a></p>
+<p><a href="/add_artist/{{ user.user_id }}">Add artists</a></p>
 
 {% endblock %}
