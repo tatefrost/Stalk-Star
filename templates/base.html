@@ -2,13 +2,14 @@
 <html>
 <head>
   <title>Stalk-Star</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/stalk-star.css') }}">
 </head>
 
 <body>
-  Stalk-Star
-  <hr>
-
-  {% block content %} {% endblock %}
+  
+  <div class="main-box">
+    {% block content %} {% endblock %}
+  </div>
 
 </body>
 </html>
