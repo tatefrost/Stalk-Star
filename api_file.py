@@ -35,8 +35,6 @@ def parse_name_id(results):
 
         return artist_name, artist_id
 
-                
-
 
 def latest_song(artist):
         """Search for an artists most previous release and parse out the title"""
@@ -59,11 +57,24 @@ def latest_song(artist):
         return title
 
 
-def check_db(id):
-        """Check if the artist is in the database"""
+def check_db(name):
+        """Check if the artist is in the database, if not it will search them on Youtube and add them"""
 
-    
-        pass
+        # Sort through database for matching artist name
+        artist_db_name = Artist.query.filter_by(artist_name=name).first()
+
+        if not artist_db_name:
+                print("No artist found, searching youtube")
+                search = search_artist(str(name))
+                parse = parse_name_id(str(search))
+                latest = latest_song(str(parse))
+
+                new_artist = Artist(artist_name=parse[0][1:], artist_youtube_id=parse[1][1:], artist_previous_song=latest)
+
+                db.session.add(new_artist)
+                db.session.commit()
+
+
 
 # Check every half hour for alterations, generate reminder if there are any and send to any user whom follows that artist id in the database
 
