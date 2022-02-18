@@ -1,3 +1,5 @@
+"""youtubemusicapi functions and email reminders"""
+
 from ytmusicapi import YTMusic
 from time import sleep
 from threading import Thread
