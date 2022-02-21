@@ -1,5 +1,6 @@
 """Stalk-Star Server"""
 
+from sqlite3 import connect
 from jinja2 import StrictUndefined
 
 from flask import (Flask, render_template, redirect, request, flash, session)
@@ -33,7 +34,6 @@ def signup():
 def signup_submit():
         """Submit sign up for Stalk-Star account forum"""
 
-        user_name = request.form["name"]
         email = request.form["email"]
         password = request.form["password"]
         password_repeat = request.form["pass2"]
@@ -41,7 +41,7 @@ def signup_submit():
         user_is_in_db = User.query.filter_by(email=email).first()
 
         if password == password_repeat and not user_is_in_db:
-                new_user = User(user_name=user_name, email=email, password=password)
+                new_user = User(email=email, password=password)
 
                 db.session.add(new_user)
                 db.session.commit()
@@ -70,16 +70,16 @@ def signin_submit():
 
         if not user:
             flash("No user with that email found")
-            return redirect("/login")
+            return redirect("/signin")
 
         if user.password != password:
             flash("Incorrect password")
-            return redirect("/login")
+            return redirect("/signin")
 
         session["user_id"] = user.user_id
 
         flash("Logged in")
-        return redirect(f"/users/{user.user_id}")
+        return redirect(f"/home/{user.user_id}")
 
 
 @app.route("/signout")
@@ -90,11 +90,13 @@ def signout():
         flash("You are logged out.")
         return redirect("/")
 
-@app.route('/home')
-def home():
+@app.route('/home/<int:user_id>', methods=["GET"])
+def home(user_id):
         """Users Home page for Stalk-Star"""
 
-        return render_template("homepage.html")
+        user_id = User.query.get(user_id)
+
+        return render_template("homepage.html", user_id=user_id)
 
 
 @app.route('/artists/<int:user_id>', methods=["GET"])
@@ -138,6 +140,8 @@ if __name__ == "__main__":
         app.debug = True
 
         app.jinja_env.auto_reload = app.debug
+        
+        connect_to_db(app)
 
         # assure templates, etc. are not cached in debug mode
         DebugToolbarExtension(app)

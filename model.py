@@ -62,7 +62,7 @@ def connect_to_db(app):
     """Connect the database to our Flask app."""
 
     # Configure to use our PstgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgres:{str(pass_word)}@localhost/stalk-star'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://hqtmeaoncqqudi:51e5c7ea3abf3a75e6fdd4602d66c14977c8df4d4d09a803283b047067f0834b@ec2-54-157-15-228.compute-1.amazonaws.com:5432/d1s0fdqo0nmr5l'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)

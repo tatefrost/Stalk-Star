@@ -63,7 +63,7 @@ def check_db(artist_name):
         """Check if the artist is in the database, if not it will search them on Youtube and add them"""
 
         # Sort through database for matching artist name
-        artist_db_name = Artist.query.filter_by(artist_name=artist_name).first()
+        artist_db_name = Artist.query.get(artist_name)
 
         if not artist_db_name:
                 print("No artist found, searching youtube")
@@ -82,6 +82,8 @@ def check_db(artist_name):
 
 # Loop over database, search each artist, search their latest song, and then compare the value to the latest song in the database, and save all the artists whose latest song has changed
 def check_for_updates():
+
+
         pass
 
 # Loop over database and find any users that follow any artist that had a change, then generate an email and send it to that user 
