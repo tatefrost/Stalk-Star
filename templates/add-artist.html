@@ -6,7 +6,7 @@
 <h1>Add artists 🎵</h1>
 
 <h3>Search:</h3>
-<form action="" method="POST">
+<form action="artist" method="POST">
 
   <div>
     <input type="filter" name="filter">
@@ -21,9 +21,9 @@
 
 <form action="add" method="POST">
 
-  <div id="artists_list">
+  <div class="box" id="artists_list">
     <ul>
-    {% for artist in artists %}
+    {% for artist in artist_list %}
       <li>
         {{ artist.artist_name }}
       </li>

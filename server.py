@@ -103,29 +103,41 @@ def home(user_id):
 def artists(user_id):
         """View all artists user follows"""
 
-        user_id = User.query.get(user_id)
+        user = User.query.get(user_id)
         artists_list = Follows.query.filter_by(user_id=user_id)
 
-        return render_template("artists.html", artists_list=artists_list)
+        return render_template("artists.html", artists_list=artists_list, user=user)
+
+@app.route('/artists/<int:user_id>', methods=["POST"])
+def search_artists(user_id):
+        """Search through and save all artists user follows, or delete artists"""
+
+        filter = request.form["filter"]
+        search = request.form["search"]
+
+        user = User.query.get(user_id)
+        artists_list = Follows.query.filter_by(user_id=user_id)
+
+        return render_template("artists.html", artists_list=artists_list, user=user)
 
 
 @app.route('/add-artist/<int:user_id>', methods=["GET"])
 def add_artist(user_id):
         """Follow new artists page form"""
 
-        user_id = User.query.get(user_id)
+        user = User.query.get(user_id)
         artist_list = Follows.query.filter_by(user_id=user_id)
 
-        return render_template("add-artist.html", user_id=user_id, artist_list=artist_list)
+        return render_template("add-artist.html", user=user, artist_list=artist_list)
 
 
 @app.route('/add-artist/<int:user_id>', methods=["POST"])
 def add_artist_submit(user_id):
         """Submit follow new artists page form"""
 
-        user_id = User.query.get(user_id)
+        user = User.query.get(user_id)
 
-        return redirect("/artists/<int:user_id>", user_id=user_id)
+        return redirect("/artists/<int:user_id>", user=user)
 
 
 @app.route('/about')
