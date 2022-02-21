@@ -5,7 +5,35 @@ body {
   align-items: center;
 }
 
-h1, h2, h3, p {
+h1, h2, h3 {
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+p {
+  color: black;
+}
+
+#about-text {
+  margin: 5%;
+}
+
+.box {
+  background-color: white;
+  margin: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landinglinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
   color: white;
 }
 
