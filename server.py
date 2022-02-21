@@ -94,9 +94,9 @@ def signout():
 def home(user_id):
         """Users Home page for Stalk-Star"""
 
-        user_id = User.query.get(user_id)
+        user = User.query.get(user_id)
 
-        return render_template("homepage.html", user_id=user_id)
+        return render_template("homepage.html", user=user)
 
 
 @app.route('/artists/<int:user_id>', methods=["GET"])
