@@ -14,7 +14,6 @@
 
   <div>
     <input type="submit" value="Search">
-    <input type="submit" value="Save">
   </div>
 
 </form>
@@ -23,7 +22,7 @@
   <ul>
   {% for artist in artists_list %}
     <li>
-      <span>{{ artist }}<button type="button">X</button></span>
+      <span>{{ artist }}<form action="artists-delete/{{ artist }}" method="POST"><input type="button" value="X"></form></span>
     </li>
     {% endfor %}
   </ul>
