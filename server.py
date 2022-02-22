@@ -121,16 +121,18 @@ def artists(user_id):
         return render_template("artists.html", artists_list=artist_names, user=user)
 
 
-@app.route('/artists/<int:user_id>', methods=["POST"])
+@app.route('/artists-filter/<int:user_id>', methods=["POST"])
 def search_artists(user_id):
-        """Search through and save all artists user follows, or delete artists"""
-
-        search = request.form["search"]
+        """Search through all artists a user follows"""
 
         user = User.query.get(user_id)
-        artists_list = Follows.query.filter_by(artist_name=search)
+        search = request.form["filter"]
+        check_db_for_artist = ytapi.check_db(search)
+        artists_list = Follows.query.filter_by(user_id=user.user_id, artist_id=check_db_for_artist).first()
+        get_artist = Artist.query.filter_by(artist_id=artists_list.artist_id).first()
+        artist_name = [get_artist.artist_name]
 
-        return render_template("artists.html", artists_list=artists_list, user=user)
+        return render_template("artists.html", artists_list=artist_name, user=user)
 
 
 @app.route('/artists-delete/<artist>', methods=["POST"])
