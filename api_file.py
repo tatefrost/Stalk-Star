@@ -63,28 +63,50 @@ def check_db(artist_name):
         """Check if the artist is in the database, if not it will search them on Youtube and add them"""
 
         # Sort through database for matching artist name
-        artist_db_name = Artist.query.get(artist_name)
+        artist_db_name = Artist.query.filter_by(artist_name=artist_name).first()
 
-        if not artist_db_name:
+        if artist_db_name == None:
                 print("No artist found, searching youtube")
                 search = search_artist(str(artist_name))
                 parse = parse_name_id(str(search))
                 latest = latest_song(str(parse))
 
-                new_artist = Artist(artist_name=parse[0][1:], artist_youtube_id=parse[1][1:], artist_previous_song=latest)
+                print(parse)
+
+                new_artist = Artist(artist_name=parse[0], artist_youtube_id=parse[1], artist_previous_song=latest)
 
                 db.session.add(new_artist)
                 db.session.commit()
 
+                return new_artist.artist_id
+        else:
+                return artist_db_name.artist_id
+
+
+def user_follow_artist(artist_id, user_id):
+                
+
+                new_following = Follows( artist_id=artist_id, user_id=user_id)
+
+                db.session.add(new_following)
+                db.session.commit()
 
 
 # Check every half hour for alterations, generate reminder if there are any and send to any user whom follows that artist id in the database
 
 # Loop over database, search each artist, search their latest song, and then compare the value to the latest song in the database, and save all the artists whose latest song has changed
 def check_for_updates():
+        artists_list = Artist.query()
 
+        updated_artists = []
 
-        pass
+        for artist in artists_list:
+                check_update = latest_song(artist)
+
+                if Artist.artist_previous_song != check_update:
+                        updated_artists.append(artist)
+
+        return updated_artists
 
 # Loop over database and find any users that follow any artist that had a change, then generate an email and send it to that user 
 def send_new_song_email():
@@ -99,7 +121,7 @@ if __name__ == "__main__":
         # connect_to_db(app)
 
         # V V V test functions V V V
-        artist = search_artist("Drake")
+        artist = search_artist("Jack Harlow")
         parse = parse_name_id(str(artist))
         latest = latest_song(str(parse))
         print(latest)

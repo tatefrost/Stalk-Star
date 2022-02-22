@@ -8,6 +8,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, Artist, Follows, connect_to_db, db
 
+import api_file as ytapi
+
 app = Flask(__name__)
 
 # this is required to use Flask sessions and the debug toolbar
@@ -48,7 +50,7 @@ def signup_submit():
 
                 flash(f"User {email} added")
                 return redirect("/signin")
-        elif password != password_repeat and user_is_in_db:
+        elif password != password_repeat or user_is_in_db:
                 flash("Passwords did not match or email is already registered")
                 return redirect("/signup")
     
@@ -104,19 +106,28 @@ def artists(user_id):
         """View all artists user follows"""
 
         user = User.query.get(user_id)
-        artists_list = Follows.query.filter_by(user_id=user_id)
+        artists_id_list = Follows.query.filter_by(user_id=user_id)
 
-        return render_template("artists.html", artists_list=artists_list, user=user)
+        artist_names = []
+
+        for artist in artists_id_list:
+                artist_object = Artist.query.filter_by(artist_id=artist.artist_id).first()
+
+                if artist_object != None:
+                        name = artist_object.artist_name
+
+                        artist_names.append(name)
+
+        return render_template("artists.html", artists_list=artist_names, user=user)
 
 @app.route('/artists/<int:user_id>', methods=["POST"])
 def search_artists(user_id):
         """Search through and save all artists user follows, or delete artists"""
 
-        filter = request.form["filter"]
         search = request.form["search"]
 
         user = User.query.get(user_id)
-        artists_list = Follows.query.filter_by(user_id=user_id)
+        artists_list = Follows.query.filter_by(artist_name=search)
 
         return render_template("artists.html", artists_list=artists_list, user=user)
 
@@ -126,18 +137,32 @@ def add_artist(user_id):
         """Follow new artists page form"""
 
         user = User.query.get(user_id)
-        artist_list = Follows.query.filter_by(user_id=user_id)
 
-        return render_template("add-artist.html", user=user, artist_list=artist_list)
+        return render_template("add-artist.html", user=user)
 
 
 @app.route('/add-artist/<int:user_id>', methods=["POST"])
 def add_artist_submit(user_id):
         """Submit follow new artists page form"""
 
-        user = User.query.get(user_id)
+        search = request.form["search"]
 
-        return redirect("/artists/<int:user_id>", user=user)
+        artist_search_result = ytapi.search_artist(str(search))
+
+        artist_parsed = ytapi.parse_name_id(str(artist_search_result))
+
+        artist_name = artist_parsed[0]
+
+        check_db_for_artist = ytapi.check_db(artist_name)
+
+        does_user_follow = Follows.query.filter_by(artist_id=check_db_for_artist).first()
+
+        if does_user_follow:
+                flash("You already follow that artist!")
+        else:  
+                ytapi.user_follow_artist(check_db_for_artist, user_id)
+
+        return redirect(f"/artists/{user_id}")
 
 
 @app.route('/about')
