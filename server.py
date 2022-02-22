@@ -120,6 +120,7 @@ def artists(user_id):
 
         return render_template("artists.html", artists_list=artist_names, user=user)
 
+
 @app.route('/artists/<int:user_id>', methods=["POST"])
 def search_artists(user_id):
         """Search through and save all artists user follows, or delete artists"""
@@ -130,6 +131,22 @@ def search_artists(user_id):
         artists_list = Follows.query.filter_by(artist_name=search)
 
         return render_template("artists.html", artists_list=artists_list, user=user)
+
+
+@app.route('/artists-delete/<artist>', methods=["POST"])
+def delete_artist(artist):
+        """Unfollow an artist that a user follows"""
+
+        user_id = session.get("user_id")
+
+        get_artist = Artist.query.filter_by(artist_name=artist).first()
+
+        get_following = Follows.query.filter_by(user_id=user_id, artist_id=get_artist.artist_id).first()
+
+        db.session.delete(get_following)
+        db.session.commit()
+
+        return redirect(f"/artists/{user_id}")
 
 
 @app.route('/add-artist/<int:user_id>', methods=["GET"])
