@@ -94,7 +94,7 @@ def user_follow_artist(artist_id, user_id):
 
 # Check every half hour for alterations, generate reminder if there are any and send to any user whom follows that artist id in the database
 
-# Loop over database, search each artist, search their latest song, and then compare the value to the latest song in the database, and save all the artists whose latest song has changed
+# Loop over database, search each artist, search their latest song, and then compare the value to the latest song in the database, and save all the artists whose latest song has changed to a list. After saving the artist, updates the artists latest song
 def check_for_updates():
         artists_list = Artist.query.all()
 
@@ -103,17 +103,17 @@ def check_for_updates():
         for artist in artists_list:
                 check_update = latest_song(artist.artist_name)
 
-                if Artist.artist_previous_song != check_update:
+                latest_in_db = artist.artist_previous_song
+
+                if check_update != latest_in_db:
                         updated_artists.append(artist)
+
+                        artist.artist_previous_song = check_update
 
         return updated_artists
 
 # Loop over database and find any users that follow any artist that had a change, then generate an email and send it to that user 
-def send_new_song_email():
-        pass
-
-# change artists lastest songs to new song that have changed
-def update_database_latest_songs():
+def send_new_song_email(updated_artists):
         pass
 
 
