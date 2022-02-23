@@ -38,6 +38,9 @@ a {
 }
 
 #artists_list {
-  max-height: 2000px;
+  max-height: 1000px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
 }
 
