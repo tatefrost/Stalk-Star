@@ -105,6 +105,8 @@ def home(user_id):
 def artists(user_id):
         """View all artists user follows"""
 
+        ytapi.send_new_song_email(ytapi.check_for_updates())
+
         user = User.query.get(user_id)
         artists_id_list = Follows.query.filter_by(user_id=user_id)
 

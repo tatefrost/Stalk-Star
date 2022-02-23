@@ -16,7 +16,7 @@ ytmusic = YTMusic("headers_auth.json")
 def search_artist(search_term):
     """Search artist on Youtube music, get search results in list"""
 
-    return ytmusic.search(search_term, filter='artists', limit=2)
+    return ytmusic.search(search_term, filter='artists', limit=1)
 
 
 def parse_name_id(results):
@@ -44,7 +44,7 @@ def latest_song(artist):
         """Search for an artists most previous release and parse out the title"""
 
         # Separate artist name and ID from input
-        artist_parsed = artist.split(",")[0][1:]
+        artist_parsed = artist.split(",")[0]
 
         # Search youtube music for "Artist" latest song
         search_result = ytmusic.search(f"{artist_parsed} latest song")
@@ -56,7 +56,7 @@ def latest_song(artist):
         title_line = split[2]
 
         # Parse for song title
-        title = title_line.split(":")[1][1:]
+        title = title_line.split(":")[1]
 
         return title
 
@@ -108,42 +108,46 @@ def check_for_updates():
                 latest_in_db = artist.artist_previous_song
 
                 if check_update != latest_in_db:
-                        updated_artists.append(artist)
+                        updated_artists.append(artist.artist_name)
 
                         artist.artist_previous_song = check_update
+
+                        db.session.commit()
 
         return updated_artists
 
 # Loop over database and find any users that follow any artist that had a change, then generate an email and send it to that user 
-# def send_new_song_email(updated_artists):
+def send_new_song_email(updated_artists):
         
-#         for artist in updated_artists:
-#                 artist_id = check_db(artist)
+        for artist in updated_artists:
+                print(artist)
+                artist_obj = Artist.query.filter_by(artist_name=artist).first()
+                artist_id = artist_obj.artist_id
+                artist_name = artist_obj.artist_name
+                song_name = artist_obj.artist_previous_song
 
-#                 get_followers = Follows.query.filter_by(Follows.artist_id.endswith(artist_id)).all()
+                get_followers = Follows.query.filter_by(artist_id=artist_id)
 
-#                 for follower in get_followers:
-#                         user_id = follower.user_id
-#                         get_user = User.query.filter_by(user_id=user_id).first()
-#                         user_email = get_user.email
+                for follower in get_followers:
+                        user_id = follower.user_id
+                        get_user = User.query.filter_by(user_id=user_id).first()
+                        user_email = get_user.email
 
-#                         def email(user_email):
-#                                 port = 465  # For SSL
-#                                 smtp_server = "smtp.gmail.com"
-#                                 sender_email = "tf.test.development@gmail.com"  # My address
-#                                 receiver_email = user_email  # Receiver address
-#                                 password = tf_test_development
-#                                 message = """\
-#                                 Subject: Hi there
+                        def email(user_email):
+                                port = 465  # For SSL
+                                smtp_server = "smtp.gmail.com"
+                                sender_email = "tf.test.development@gmail.com"  # My address
+                                receiver_email = user_email  # Receiver address
+                                password = tf_test_development
+                                message = f"\
+                                Subject: Hi there\n\n This message is sent from Stalk-Star. One of your favorite artists, {artist_name} has a new song called {song_name}!"
 
-#                                 This message is sent from Python."""
+                                context = ssl.create_default_context()
+                                with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+                                        server.login(sender_email, password)
+                                        server.sendmail(sender_email, receiver_email, message)
 
-#                                 context = ssl.create_default_context()
-#                                 with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-#                                         server.login(sender_email, password)
-#                                         server.sendmail(sender_email, receiver_email, message)
-
-#                         email(user_email)
+                        email(user_email)
 
 
 
@@ -155,26 +159,6 @@ if __name__ == "__main__":
         # parse = parse_name_id(str(artist))
         # latest = latest_song(str(parse))
         # print(latest)
-
-        # user_email = "tatefrost96@gmail.com"
-
-        # def email(user_email):
-        #         port = 465  # For SSL
-        #         smtp_server = "smtp.gmail.com"
-        #         sender_email = "tf.test.development@gmail.com"  # My address
-        #         receiver_email = user_email  # Receiver address
-        #         password = tf_test_development
-        #         message = """\
-        #         Subject: Hi there
-
-        #         This message is sent from Python."""
-
-        #         context = ssl.create_default_context()
-        #         with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-        #                 server.login(sender_email, password)
-        #                 server.sendmail(sender_email, receiver_email, message)
-
-        # email(user_email)
 
         # while True:
         #         sleep(1800)
