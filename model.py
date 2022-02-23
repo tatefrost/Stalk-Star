@@ -2,7 +2,7 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import PrimaryKeyConstraint
-from env.password.postgresql_password import db_uri
+from env.password.strings import db_uri
 
 db = SQLAlchemy()
 

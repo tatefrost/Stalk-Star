@@ -3,8 +3,10 @@
 from ytmusicapi import YTMusic
 from time import sleep
 from threading import Thread
+import smtplib, ssl
 
 from model import User, Artist, Follows, connect_to_db, db
+from env.password.strings import tf_test_development
 
 # Authenticates and initializes the YouTube Music API
 ytmusic = YTMusic("headers_auth.json")
@@ -113,21 +115,69 @@ def check_for_updates():
         return updated_artists
 
 # Loop over database and find any users that follow any artist that had a change, then generate an email and send it to that user 
-def send_new_song_email(updated_artists):
-        pass
+# def send_new_song_email(updated_artists):
+        
+#         for artist in updated_artists:
+#                 artist_id = check_db(artist)
+
+#                 get_followers = Follows.query.filter_by(Follows.artist_id.endswith(artist_id)).all()
+
+#                 for follower in get_followers:
+#                         user_id = follower.user_id
+#                         get_user = User.query.filter_by(user_id=user_id).first()
+#                         user_email = get_user.email
+
+#                         def email(user_email):
+#                                 port = 465  # For SSL
+#                                 smtp_server = "smtp.gmail.com"
+#                                 sender_email = "tf.test.development@gmail.com"  # My address
+#                                 receiver_email = user_email  # Receiver address
+#                                 password = tf_test_development
+#                                 message = """\
+#                                 Subject: Hi there
+
+#                                 This message is sent from Python."""
+
+#                                 context = ssl.create_default_context()
+#                                 with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+#                                         server.login(sender_email, password)
+#                                         server.sendmail(sender_email, receiver_email, message)
+
+#                         email(user_email)
+
 
 
 if __name__ == "__main__":
         # connect_to_db(app)
 
         # V V V test functions V V V
-        artist = search_artist("Jack Harlow")
-        parse = parse_name_id(str(artist))
-        latest = latest_song(str(parse))
-        print(latest)
+        # artist = search_artist("Jack Harlow")
+        # parse = parse_name_id(str(artist))
+        # latest = latest_song(str(parse))
+        # print(latest)
+
+        # user_email = "tatefrost96@gmail.com"
+
+        # def email(user_email):
+        #         port = 465  # For SSL
+        #         smtp_server = "smtp.gmail.com"
+        #         sender_email = "tf.test.development@gmail.com"  # My address
+        #         receiver_email = user_email  # Receiver address
+        #         password = tf_test_development
+        #         message = """\
+        #         Subject: Hi there
+
+        #         This message is sent from Python."""
+
+        #         context = ssl.create_default_context()
+        #         with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+        #                 server.login(sender_email, password)
+        #                 server.sendmail(sender_email, receiver_email, message)
+
+        # email(user_email)
 
         # while True:
         #         sleep(1800)
         #         Thread(target = fun).start()
 
-    
+        pass
