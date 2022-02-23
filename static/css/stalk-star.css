@@ -24,7 +24,7 @@ p {
   margin: 5%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: top;
 }
 
 .landinglinks {
@@ -38,9 +38,13 @@ a {
 }
 
 #artists_list {
-  max-height: 1000px;
+  max-height: 800px;
   width: 300px;
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 20px;
+  margin-bottom: 5%;
 }
 
