@@ -18,6 +18,8 @@
 
 </form>
 
+<p><a href="/add-artist/{{ user.user_id }}">Add artists</a></p>
+
 <div class="box" id="artists_list">
   <ul>
   {% for artist in artists_list %}
@@ -27,7 +29,5 @@
     {% endfor %}
   </ul>
 </div>
-
-<p><a href="/add-artist/{{ user.user_id }}">Add artists</a></p>
 
 {% endblock %}
