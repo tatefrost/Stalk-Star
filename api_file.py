@@ -96,12 +96,12 @@ def user_follow_artist(artist_id, user_id):
 
 # Loop over database, search each artist, search their latest song, and then compare the value to the latest song in the database, and save all the artists whose latest song has changed
 def check_for_updates():
-        artists_list = Artist.query()
+        artists_list = Artist.query.all()
 
         updated_artists = []
 
         for artist in artists_list:
-                check_update = latest_song(artist)
+                check_update = latest_song(artist.artist_name)
 
                 if Artist.artist_previous_song != check_update:
                         updated_artists.append(artist)

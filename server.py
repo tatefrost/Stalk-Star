@@ -201,6 +201,9 @@ if __name__ == "__main__":
 
         app.jinja_env.auto_reload = app.debug
         
+        # Turns off developer intercept on page redirects
+        app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
+
         connect_to_db(app)
 
         # assure templates, etc. are not cached in debug mode
