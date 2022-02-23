@@ -37,3 +37,7 @@ a {
   color: white;
 }
 
+#artists_list {
+  max-height: 2000px;
+}
+
