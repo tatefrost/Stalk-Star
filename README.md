@@ -7,17 +7,17 @@ new content the user will recieve an auto generated reminder email to notify the
 Stalk-Star was created utilizing the YTMusicAPI to get the artists information
 
 ## Technologies used
-*Python
+* Python
 
-*HTML5
+* HTML5
 
-*CSS
+* CSS
 
-*Flask
+* Flask
 
-*SQLAlchemy
+* SQLAlchemy
 
-*YTMusicAPI
+* YTMusicAPI
 
 
 ## Author
