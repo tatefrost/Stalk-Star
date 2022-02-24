@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<p class="backarrow"><a id="backarrow" href="/home/{{ user_id }}">Back ⬅️</a></p>
+
 <h2>Are you sure you're ready to leave Stalk-Star?</h2>
 
 <form action="/delete-account/{{ user_id }}" method="POST">
