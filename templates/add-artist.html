@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<p><a href="/artists/{{ user.user_id }}">Back ⬅️</a></p>
+<p><a href="/artists/{{ user_id }}">Back ⬅️</a></p>
 
 <h1>Add artists 🎵</h1>
 
 <h3>Search:</h3>
-<form action="/add-artist/{{ user.user_id }}" method="POST">
+<form action="/add-artist/{{ user_id }}" method="POST">
 
   <div>
     <input type="search" name="search">

@@ -1,5 +1,6 @@
 """Stalk-Star Server"""
 
+from logging import warning
 from sqlite3 import connect
 from jinja2 import StrictUndefined
 
@@ -9,6 +10,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import User, Artist, Follows, connect_to_db, db
 
 import api_file as ytapi
+import time
 
 app = Flask(__name__)
 
@@ -42,7 +44,7 @@ def signup_submit():
 
         user_is_in_db = User.query.filter_by(email=email).first()
 
-        if password == password_repeat and not user_is_in_db:
+        if password == password_repeat and not user_is_in_db and email != "":
                 new_user = User(email=email, password=password)
 
                 db.session.add(new_user)
@@ -101,7 +103,8 @@ def home(user_id):
         if user_id:
                 return render_template("homepage.html", user_id=user_id)
         else:
-                raise Exception("No user logged in.")  
+                flash("You are not logged in")
+                return redirect("/")
 
 
 @app.route('/artists/<int:user_id>', methods=["GET"])
@@ -125,7 +128,8 @@ def artists(user_id):
 
                                 artist_names.append(name)
         else:
-                raise Exception("No user logged in.")
+                flash("You are not logged in")
+                return redirect("/")
 
         return render_template("artists.html", artists_list=artist_names, user_id=user_id)
 
@@ -138,7 +142,7 @@ def search_artists():
         search = request.form["filter"]
 
         if not user_id:
-                flash("Not logged into user!")
+                flash("You are not logged in")
                 return redirect("/")
         else:
                 if search != "":
@@ -174,9 +178,13 @@ def delete_artist(artist):
 def add_artist(user_id):
         """Follow new artists page form"""
 
-        user = User.query.get(user_id)
+        user_id = session.get("user_id")
 
-        return render_template("add-artist.html", user=user)
+        if user_id:
+                return render_template("add-artist.html", user_id=user_id)
+        else:  
+                flash("You are not logged in")
+                return redirect("/")
 
 
 @app.route('/add-artist/<int:user_id>', methods=["POST"])
@@ -193,7 +201,7 @@ def add_artist_submit(user_id):
 
         check_db_for_artist = ytapi.check_db(artist_name)
 
-        does_user_follow = Follows.query.filter_by(artist_id=check_db_for_artist).first()
+        does_user_follow = Follows.query.filter_by(artist_id=check_db_for_artist, user_id=user_id).first()
 
         if does_user_follow:
                 flash("You already follow that artist!")

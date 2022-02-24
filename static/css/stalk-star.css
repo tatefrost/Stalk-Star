@@ -48,3 +48,14 @@ a {
   margin-bottom: 5%;
 }
 
+.messages {
+  position: relative;
+  top: 500px;
+  right: 220px;
+  display: flex;
+  justify-content: center;
+}
+
+.message_flash {
+  color: aliceblue;
+}
