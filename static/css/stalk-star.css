@@ -2,9 +2,10 @@
 body {
   background-color: #1789FC;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  margin-top: 5%;
 }
 
 h1, h2, h3 {
@@ -19,6 +20,13 @@ p {
 
 #about-text {
   margin: 5%;
+}
+
+.main-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .box {
@@ -90,15 +98,17 @@ a {
 }
 
 .messages {
-  position: relative;
-  top: 500px;
-  right: 220px;
+  position: sticky;
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  align-items: flex-start;
 }
 
 .message_flash {
   color: aliceblue;
+  display: flex;
+  justify-content: left;
+  align-items: flex-start;
 }
 
 #deletelink {
@@ -140,8 +150,11 @@ a {
   margin-bottom: 5%;
 }
 
-#signupform {
-  color: white;
+#signinform {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 80px;
 }
 
 #repassword {
@@ -179,4 +192,8 @@ a {
 
 form {
   color: whitesmoke
+}
+
+.banner {
+  margin-top: 5%;
 }
