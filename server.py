@@ -112,8 +112,6 @@ def home(user_id):
 def artists(user_id):
         """View all artists user follows"""
 
-        # ytapi.send_new_song_email(ytapi.check_for_updates())
-
         user_id = session.get("user_id")
         
         artist_names = []
@@ -192,6 +190,8 @@ def add_artist(user_id):
 @app.route('/add-artist/<int:user_id>', methods=["POST"])
 def add_artist_submit(user_id):
         """Submit follow new artists page form"""
+
+        # ytapi.send_new_song_email(ytapi.check_for_updates())
 
         search = request.form["search"]
 
