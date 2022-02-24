@@ -26,7 +26,7 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex-direction: column;
+  align-items: center;
 }
 
 .box {
@@ -43,7 +43,7 @@ p {
   align-items: center;
 }
 
-#signup, #signin {
+#signup, #signin, #updatefollowings, #signout {
   background-color: #FDB833;
   height: 100px;
   width: 200px;
@@ -74,7 +74,7 @@ p {
 
 }
 
-#landinglinksbox {
+#landinglinksbox, #homelinksbox {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -101,18 +101,16 @@ a {
   position: sticky;
   display: flex;
   justify-content: left;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .message_flash {
   color: aliceblue;
   display: flex;
   justify-content: left;
-  align-items: flex-start;
-}
-
-#deletelink {
-  color: hsla(0, 100%, 50%, 0.721);
+  align-items: center;
+  position: relative;
+  right: 25px;
 }
 
 .artistname {
@@ -196,4 +194,51 @@ form {
 
 .banner {
   margin-top: 5%;
+}
+
+.deletelink {
+
+  background-color: white;
+  height: 50px;
+  width: 150px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-self: baseline;
+  align-items: center;
+  margin-top: 40px;
+}
+
+#deleteacc {
+  color: hsla(0, 100%, 50%, 0.721);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  margin-top: 12px;
+}
+
+#searchartistsbox, #filterform, #addform, #addsearch{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-self: space-between;
+  padding: 5%;
+}
+
+#add-artist {
+  background-color: #FDB833;
+  height: 80px;
+  width: 170px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: whitesmoke;
+  text-decoration: none;
+  border-style: groove;
+  border-color: white;
+  border-width: 5%;
+  left: 100px;
 }

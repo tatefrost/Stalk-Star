@@ -5,17 +5,20 @@
 
 <h1 class="banner">Add artists 🎵</h1>
 
-<h3>Search:</h3>
-<form action="/add-artist/{{ user_id }}" method="POST">
 
-  <div>
-    <input type="search" name="search">
-  </div>
-
-  <div>
-    <input type="submit" value="Add">
-  </div>
-
-</form>
+<div id="addform">
+  <h3>Search:</h3>
+  <form id="addsearch" action="/add-artist/{{ user_id }}" method="POST">
+  
+    <div>
+      <input type="search" name="search">
+    </div>
+  
+    <div>
+      <input class="buttons" type="submit" value="Add">
+    </div>
+  
+  </form>
+</div>
 
 {% endblock %}

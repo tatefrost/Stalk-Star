@@ -202,6 +202,8 @@ def delete_artist(artist):
         db.session.delete(get_following)
         db.session.commit()
 
+        flash(f"Artist: '{artist} was deleted'")
+
         return redirect(f"/artists/{user_id}")
 
 
@@ -241,6 +243,7 @@ def add_artist_submit(user_id):
                         flash("You already follow that artist!")
                 else:  
                         ytapi.user_follow_artist(check_db_for_artist, user_id)
+                        flash(f"Now following {artist_name}")
 
         return redirect(f"/artists/{user_id}")
 

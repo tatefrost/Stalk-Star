@@ -5,20 +5,23 @@
 
 <h1 class="banner">Your Artists 🎵</h1>
 
-<h3>Search:</h3>
-<form action="/artists-filter/{{ user_id }}" method="POST">
+<div id="searchartistsbox">
+  <h3>Search:</h3>
+  
+  <form id="filterform" action="/artists-filter/{{ user_id }}" method="POST">
+  
+    <div>
+      <input type="filter" name="filter">
+    </div>
+  
+    <div>
+      <input class="buttons" type="submit" value="Search">
+    </div>
+  
+  </form>
+</div>
 
-  <div>
-    <input type="filter" name="filter">
-  </div>
-
-  <div>
-    <input type="submit" value="Search">
-  </div>
-
-</form>
-
-<p><a href="/add-artist/{{ user_id }}">Add artists</a></p>
+<p id="add-artist"><a href="/add-artist/{{ user_id }}">Add artists</a></p>
 
 <div class="box" id="artists_list">
   <ul>

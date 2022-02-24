@@ -3,8 +3,10 @@
 
 <h1 class="banner">Welcome back 👋</h1>
 
-<p><a href="/artists/{{ user_id }}">Update Followings</a></p>
-<p><a href="/signout">Logout</a></p>
-<p><a id="deletelink" href="/delete/{{ user_id }}">Delete account</a></p>
+<div id="homelinksbox">
+  <p><a id="updatefollowings" href="/artists/{{ user_id }}">Update Followings</a></p>
+  <p class="deletelink"><a id="deleteacc" href="/delete/{{ user_id }}">Delete account</a></p>
+  <p><a id="signout" href="/signout">Logout</a></p>
+</div>
 
 {% endblock %}
