@@ -95,6 +95,37 @@ def signout():
         flash("You are logged out.")
         return redirect("/")
 
+
+@app.route("/delete/<int:user_id>", methods=["GET"])
+def delete_account_page(user_id):
+
+        user_id = session.get("user_id")
+
+        if user_id:
+                return render_template("delete.html", user_id=user_id)
+        else:
+                flash("You are not logged in")
+                return redirect("/")
+
+
+@app.route("/delete-account/<int:user_id>", methods=["POST"])
+def delete_account(user_id):
+
+        user_id = session.get("user_id")
+
+        if user_id:
+                get_user = User.query.filter_by(user_id=user_id).first()
+                del session["user_id"]
+                db.session.delete(get_user)
+                db.session.commit()
+                flash("User account deleted")
+        else:
+                flash("You are not logged in")
+                return redirect("/")
+
+        return redirect("/")
+
+
 @app.route('/home/<int:user_id>', methods=["GET"])
 def home(user_id):
         """Users Home page for Stalk-Star"""
@@ -147,8 +178,8 @@ def search_artists(user_id):
                 if search != "":
                         print(search)
                         check_db_for_artist = ytapi.check_db(search)
-                        artists_list = Follows.query.filter_by(user_id=user_id, artist_id=check_db_for_artist).first()
-                        if artists_list:
+                        if check_db_for_artist:
+                                artists_list = Follows.query.filter_by(user_id=user_id, artist_id=check_db_for_artist).first()
                                 get_artist = Artist.query.filter_by(artist_id=artists_list.artist_id).first()
                                 artist_name = [get_artist.artist_name]
 
@@ -195,20 +226,21 @@ def add_artist_submit(user_id):
 
         search = request.form["search"]
 
-        artist_search_result = ytapi.search_artist(str(search))
+        if search != "":
+                artist_search_result = ytapi.search_artist(str(search))
 
-        artist_parsed = ytapi.parse_name_id(str(artist_search_result))
+                artist_parsed = ytapi.parse_name_id(str(artist_search_result))
 
-        artist_name = artist_parsed[0]
+                artist_name = artist_parsed[0]
 
-        check_db_for_artist = ytapi.check_db(artist_name)
+                check_db_for_artist = ytapi.check_db(artist_name)
 
-        does_user_follow = Follows.query.filter_by(artist_id=check_db_for_artist, user_id=user_id).first()
+                does_user_follow = Follows.query.filter_by(artist_id=check_db_for_artist, user_id=user_id).first()
 
-        if does_user_follow:
-                flash("You already follow that artist!")
-        else:  
-                ytapi.user_follow_artist(check_db_for_artist, user_id)
+                if does_user_follow:
+                        flash("You already follow that artist!")
+                else:  
+                        ytapi.user_follow_artist(check_db_for_artist, user_id)
 
         return redirect(f"/artists/{user_id}")
 
