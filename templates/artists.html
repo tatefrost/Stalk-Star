@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<p><a href="/home/{{ user.user_id }}">Back ⬅️</a></p>
+<p><a href="/home/{{ user_id }}">Back ⬅️</a></p>
 
 <h1>Your Artists 🎵</h1>
 
 <h3>Search:</h3>
-<form action="/artists-filter/{{ user.user_id }}" method="POST">
+<form action="/artists-filter/{{ user_id }}" method="POST">
 
   <div>
     <input type="filter" name="filter">
@@ -18,7 +18,7 @@
 
 </form>
 
-<p><a href="/add-artist/{{ user.user_id }}">Add artists</a></p>
+<p><a href="/add-artist/{{ user_id }}">Add artists</a></p>
 
 <div class="box" id="artists_list">
   <ul>

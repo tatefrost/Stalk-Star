@@ -107,20 +107,24 @@ def artists(user_id):
 
         # ytapi.send_new_song_email(ytapi.check_for_updates())
 
-        user = User.query.get(user_id)
-        artists_id_list = Follows.query.filter_by(user_id=user_id)
-
+        user_id = session.get("user_id")
+        
         artist_names = []
 
-        for artist in artists_id_list:
-                artist_object = Artist.query.filter_by(artist_id=artist.artist_id).first()
+        if user_id:
+                artists_id_list = Follows.query.filter_by(user_id=user_id)
 
-                if artist_object != None:
-                        name = artist_object.artist_name
+                for artist in artists_id_list:
+                        artist_object = Artist.query.filter_by(artist_id=artist.artist_id).first()
 
-                        artist_names.append(name)
+                        if artist_object != None:
+                                name = artist_object.artist_name
 
-        return render_template("artists.html", artists_list=artist_names, user=user)
+                                artist_names.append(name)
+        else:
+                raise Exception("No user logged in.")
+
+        return render_template("artists.html", artists_list=artist_names, user_id=user_id)
 
 
 @app.route('/artists-filter/<int:user_id>', methods=["POST"])
