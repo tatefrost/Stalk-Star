@@ -63,3 +63,15 @@ a {
 #deletelink {
   color: hsla(0, 100%, 50%, 0.721);
 }
+
+.artistname {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.xbutton {
+  color: red;
+  left: 50%;
+}

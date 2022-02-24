@@ -24,7 +24,7 @@
   <ul>
   {% for artist in artists_list %}
     <li>
-      <span>{{ artist }}<form action="/artists-delete/{{ artist }}" method="POST"><input type="submit" value="X"></form></span>
+      <span class="artistname">{{ artist }}<form action="/artists-delete/{{ artist }}" method="POST"><input class="xbutton" type="submit" value="X"></form></span>
     </li>
     {% endfor %}
   </ul>
