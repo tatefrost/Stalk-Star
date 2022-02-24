@@ -96,9 +96,12 @@ def signout():
 def home(user_id):
         """Users Home page for Stalk-Star"""
 
-        user = User.query.get(user_id)
+        user_id = session.get("user_id")
 
-        return render_template("homepage.html", user=user)
+        if user_id:
+                return render_template("homepage.html", user_id=user_id)
+        else:
+                raise Exception("No user logged in.")  
 
 
 @app.route('/artists/<int:user_id>', methods=["GET"])
@@ -128,21 +131,27 @@ def artists(user_id):
 
 
 @app.route('/artists-filter/<int:user_id>', methods=["POST"])
-def search_artists(user_id):
+def search_artists():
         """Search through all artists a user follows"""
 
-        user = User.query.get(user_id)
+        user_id = session.get("user_id")
         search = request.form["filter"]
 
-        if search != "":
-                check_db_for_artist = ytapi.check_db(search)
-                artists_list = Follows.query.filter_by(user_id=user.user_id, artist_id=check_db_for_artist).first()
-                get_artist = Artist.query.filter_by(artist_id=artists_list.artist_id).first()
-                artist_name = [get_artist.artist_name]
-
-                return render_template("artists.html", artists_list=artist_name, user=user)
+        if not user_id:
+                flash("Not logged into user!")
+                return redirect("/")
         else:
-                return redirect(f"/artists/{user_id}")
+                if search != "":
+                        print(search)
+                        check_db_for_artist = ytapi.check_db(search)
+                        artists_list = Follows.query.filter_by(user_id=user_id, artist_id=check_db_for_artist).first()
+                        get_artist = Artist.query.filter_by(artist_id=artists_list.artist_id).first()
+                        artist_name = [get_artist.artist_name]
+
+                        return render_template("artists.html", artists_list=artist_name, user_id=user_id)
+                else:
+                        return redirect(f"/artists/{user_id}")
+                
 
 
 @app.route('/artists-delete/<artist>', methods=["POST"])
