@@ -3,6 +3,7 @@
 from logging import warning
 from sqlite3 import connect
 from jinja2 import StrictUndefined
+import werkzeug as xyz
 
 from flask import (Flask, render_template, redirect, request, flash, session)
 from flask_debugtoolbar import DebugToolbarExtension
@@ -10,7 +11,6 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import User, Artist, Follows, connect_to_db, db
 
 import api_file as ytapi
-import time
 
 app = Flask(__name__)
 
@@ -41,11 +41,12 @@ def signup_submit():
         email = request.form["email"]
         password = request.form["password"]
         password_repeat = request.form["pass2"]
+        password_hashed = xyz.security.generate_password_hash(password, method='pbkdf2:sha256', salt_length=8)
 
         user_is_in_db = User.query.filter_by(email=email).first()
 
         if password == password_repeat and not user_is_in_db and email != "":
-                new_user = User(email=email, password=password)
+                new_user = User(email=email, password=password_hashed)
 
                 db.session.add(new_user)
                 db.session.commit()
@@ -76,7 +77,7 @@ def signin_submit():
             flash("No user with that email found")
             return redirect("/signin")
 
-        if user.password != password:
+        if xyz.security.check_password_hash(user.password, password) != True:
             flash("Incorrect password")
             return redirect("/signin")
 
@@ -135,7 +136,7 @@ def artists(user_id):
 
 
 @app.route('/artists-filter/<int:user_id>', methods=["POST"])
-def search_artists():
+def search_artists(user_id):
         """Search through all artists a user follows"""
 
         user_id = session.get("user_id")
@@ -149,10 +150,11 @@ def search_artists():
                         print(search)
                         check_db_for_artist = ytapi.check_db(search)
                         artists_list = Follows.query.filter_by(user_id=user_id, artist_id=check_db_for_artist).first()
-                        get_artist = Artist.query.filter_by(artist_id=artists_list.artist_id).first()
-                        artist_name = [get_artist.artist_name]
+                        if artists_list:
+                                get_artist = Artist.query.filter_by(artist_id=artists_list.artist_id).first()
+                                artist_name = [get_artist.artist_name]
 
-                        return render_template("artists.html", artists_list=artist_name, user_id=user_id)
+                                return render_template("artists.html", artists_list=artist_name, user_id=user_id)
                 else:
                         return redirect(f"/artists/{user_id}")
                 
