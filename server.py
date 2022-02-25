@@ -1,7 +1,5 @@
 """Stalk-Star Server"""
 
-from logging import warning
-from sqlite3 import connect
 from jinja2 import StrictUndefined
 import werkzeug as xyz
 
