@@ -18,8 +18,9 @@ p {
   color: black;
 }
 
-#about-text {
+.about-text {
   margin: 5%;
+  text-indent: 50px;
 }
 
 .main-box{
@@ -63,14 +64,14 @@ p {
   background-color: whitesmoke;
   border-radius: 100%;
   text-decoration: none;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-style: groove;
   border-color: rgba(0, 0, 0, 0.132);
-  border: 5%;
+  border: 8px;
 
 }
 
@@ -241,4 +242,10 @@ form {
   border-color: white;
   border-width: 5%;
   left: 100px;
+}
+
+#infobox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
