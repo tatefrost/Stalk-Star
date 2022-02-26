@@ -202,8 +202,8 @@ form {
 .deletelink {
 
   background-color: whitesmoke;
-  height: 50px;
-  width: 150px;
+  height: 40px;
+  width: 120px;
   border-radius: 6px;
   border-color: red;
   border-style: groove;
@@ -212,7 +212,6 @@ form {
   flex-direction: column;
   justify-self: baseline;
   align-items: center;
-  margin-top: 40px;
 }
 
 #deleteacc {
@@ -222,7 +221,7 @@ form {
   flex-direction: column;
   justify-self: center;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 10%;
 }
 
 #searchartistsbox, #filterform, #addform, #addsearch{
