@@ -44,7 +44,7 @@ def latest_song(artist):
         """Search for an artists most previous release and parse out the title"""
 
         # Separate artist name and ID from input
-        artist_parsed = artist.split(",")[0]
+        artist_parsed = artist.split(",")[0][2:-1]
 
         # Search youtube music for "Artist" latest song
         search_result = ytmusic.search(f"{artist_parsed} latest song")

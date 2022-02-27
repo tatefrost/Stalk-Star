@@ -1,5 +1,6 @@
 """Stalk-Star Server"""
 
+from crypt import methods
 from jinja2 import StrictUndefined
 import werkzeug as xyz
 
@@ -251,6 +252,20 @@ def about():
         """Information about Stalk-Star"""
 
         return render_template("about.html")
+
+@app.route('/settings/<int:user_id>', methods=["GET"])
+def settings(user_id):
+        """User account settings"""
+
+        user_id = session.get("user_id")
+
+        user = User.query.filter_by(user_id=user_id).first()
+
+        if user_id:
+                return render_template("settings.html", user=user)
+        else:
+                flash("You are not logged in")
+                return redirect("/")
 
 
 if __name__ == "__main__":
