@@ -179,11 +179,16 @@ def search_artists(user_id):
                         check_db_for_artist = ytapi.check_db(search)
                         if check_db_for_artist:
                                 artists_list = Follows.query.filter_by(user_id=user_id, artist_id=check_db_for_artist).first()
-                                get_artist = Artist.query.filter_by(artist_id=artists_list.artist_id).first()
-                                artist_name = [get_artist.artist_name]
+                                if artists_list:
+                                        get_artist = Artist.query.filter_by(artist_id=artists_list.artist_id).first()
+                                        artist_name = [get_artist.artist_name]
 
-                                return render_template("artists.html", artists_list=artist_name, user_id=user_id)
-                else:
+                                        return render_template("artists.html", artists_list=artist_name, user_id=user_id)
+                                else:   
+                                        flash("You do not follow that artist")
+                                        return redirect(f"/artists/{user_id}")
+                else:   
+                        flash("That artist might not exist..")
                         return redirect(f"/artists/{user_id}")
                 
 

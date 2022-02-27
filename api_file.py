@@ -47,7 +47,7 @@ def latest_song(artist):
         artist_parsed = artist.split(",")[0][2:-1]
 
         # Search youtube music for "Artist" latest song
-        search_result = ytmusic.search(f"{artist_parsed} latest song")
+        search_result = ytmusic.search(f"{artist_parsed} latest song", limit=1)
 
         # Split search result
         split = str(search_result).split(",")
@@ -160,8 +160,8 @@ if __name__ == "__main__":
         # latest = latest_song(str(parse))
         # print(latest)
 
-        # while True:
+        # while True: 
         #         sleep(1800)
         #         Thread(target = fun).start()
 
-        pass
+        print(ytmusic.search("jed1-8QSeCc"))
