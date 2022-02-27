@@ -40,6 +40,7 @@ p {
   background-color: white;
   margin: 5%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: top;
   border-radius: 3%;
@@ -279,13 +280,6 @@ form {
   align-items: center;
 }
 
-#settingsbox {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
 #settings-icon {
   background: url('../imgs/icon-vector.jpeg')no-repeat;
   background-position: top;
@@ -313,5 +307,16 @@ h4 {
   height: 500px;
   display: flex;
   flex-direction: column;
+}
+
+#settings-banner {
+  display: flex;
   justify-content: center;
+}
+
+#settingsbox {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
 }

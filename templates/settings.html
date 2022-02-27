@@ -4,7 +4,12 @@
 <p class="backarrow"><a id="backarrow" href="/home/{{ user.user_id }}">Back ⬅️</a></p>
 
 <div class="box" id="settings-box">
-  <h4 id="settings-banner">Account settings⚙️</h4>
+  <h4 id="settings-banner">Account settings⚙️</h4><br><br>
+  <div id="settings-options">
+    <a id="deleteacc"href="/delete/{{ user.user_id }}">Delete Account</a>
+  </div>
 </div>
+
+
 
 {% endblock %}

@@ -6,6 +6,8 @@ new content the user will receive an auto generated reminder email to notify the
 
 Stalk-Star was created utilizing the YTMusicAPI to get the artists information
 
+![Stalk-Star-image](https://github.com/tatefrost/img-stalk-star/blob/main/Screen%20Shot%202022-02-27%20at%202.57.25%20PM.png?raw=true)
+
 ## Technologies used
 * Python
 
