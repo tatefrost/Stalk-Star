@@ -103,7 +103,11 @@ def check_for_updates():
         updated_artists = []
 
         for artist in artists_list:
-                check_update = latest_song(artist.artist_name)
+                search = ytmusic.search(artist.artist_name)
+
+                parse_search = parse_name_id(str(search))
+
+                check_update = latest_song(str(parse_search))
 
                 latest_in_db = artist.artist_previous_song
 
@@ -140,7 +144,7 @@ def send_new_song_email(updated_artists):
                                 receiver_email = user_email  # Receiver address
                                 password = tf_test_development
                                 message = f"\
-                                Subject: Hi there\n\n This message is sent from Stalk-Star. One of your favorite artists, {artist_name} has a new song called {song_name}!"
+                                Subject: Hi there\n\n This message is sent from Stalk Star. One of your favorite artists, {artist_name} has a new song called {song_name}!"
 
                                 context = ssl.create_default_context()
                                 with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:

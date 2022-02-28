@@ -228,7 +228,7 @@ def add_artist(user_id):
 def add_artist_submit(user_id):
         """Submit follow new artists page form"""
 
-        # ytapi.send_new_song_email(ytapi.check_for_updates())
+        ytapi.send_new_song_email(ytapi.check_for_updates())
 
         search = request.form["search"]
 
