@@ -250,7 +250,7 @@ def add_artist_submit(user_id):
                         ytapi.user_follow_artist(check_db_for_artist, user_id)
 
                         # loop over database and yt for new songs, soon to be removed and set in discrete heroku file 
-                        ytapi.send_new_song_email(ytapi.check_for_updates())
+                        # ytapi.send_new_song_email(ytapi.check_for_updates())
 
                         flash(f"Now following {artist_name}")
 
