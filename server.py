@@ -11,6 +11,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import User, Artist, Follows, connect_to_db, db
 
 import api_file as ytapi
+import os      
 
 print("running server file")
 
@@ -341,7 +342,7 @@ if __name__ == "__main__":
         # assure templates, etc. are not cached in debug mode
         DebugToolbarExtension(app)
 
-        app.run(port=5000, host='0.0.0.0')
+        app.run(port=os.getenv('PORT'), host='0.0.0.0')
 
 
 
