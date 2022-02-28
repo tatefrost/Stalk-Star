@@ -4,12 +4,17 @@ from ytmusicapi import YTMusic
 from time import sleep
 from threading import Thread
 import smtplib, ssl
+import os
 
 from model import User, Artist, Follows, connect_to_db, db
-from env.password.strings import tf_test_development
+# from env.password.strings import tf_test_development
+
+tf_test_development = os.environ["TF_TEST_DEVELOPMENT"]
+
+headers_auth = os.environ["HEADERS_AUTH_JSON"]
 
 # Authenticates and initializes the YouTube Music API
-ytmusic = YTMusic("headers_auth.json")
+ytmusic = YTMusic(headers_auth)
 
 
 # Get artist name and channel id and check if they are in the database, if not it will add them

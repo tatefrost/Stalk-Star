@@ -5,13 +5,14 @@ from tabnanny import check
 from jinja2 import StrictUndefined
 from urllib3 import Retry
 import werkzeug as xyz
-
 from flask import (Flask, render_template, redirect, request, flash, session)
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, Artist, Follows, connect_to_db, db
 
 import api_file as ytapi
+
+
 
 app = Flask(__name__)
 
