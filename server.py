@@ -12,7 +12,7 @@ from model import User, Artist, Follows, connect_to_db, db
 
 import api_file as ytapi
 
-
+print("running server file")
 
 app = Flask(__name__)
 

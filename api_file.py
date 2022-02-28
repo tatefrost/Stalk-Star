@@ -8,6 +8,8 @@ import os
 
 from model import User, Artist, Follows, connect_to_db, db
 
+print("starting api file")
+
 tf_test_development = os.environ["TF_TEST_DEVELOPMENT"]
 
 headers_auth = os.environ["HEADERS_AUTH_JSON"]
