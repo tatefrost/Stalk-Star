@@ -1,10 +1,10 @@
 """Models and database functions for Stalk-Star"""
 
 import os
+import requests
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import PrimaryKeyConstraint
-# from env.password.strings import db_uri
 
 db_uri = os.environ["DB_URI"]
 

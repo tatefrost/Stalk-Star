@@ -1,2 +1,4 @@
 env
 headers_auth.json
+strings.py
+secrets.sh
