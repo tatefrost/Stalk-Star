@@ -342,7 +342,7 @@ if __name__ == "__main__":
         # assure templates, etc. are not cached in debug mode
         DebugToolbarExtension(app)
 
-        app.run(port=5000, host='0.0.0.0')
+        app.run(port=os.getenv("PORT"), host='0.0.0.0')
 
 
 
