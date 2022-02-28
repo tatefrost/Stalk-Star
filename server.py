@@ -1,7 +1,9 @@
 """Stalk-Star Server"""
 
 from crypt import methods
+from tabnanny import check
 from jinja2 import StrictUndefined
+from urllib3 import Retry
 import werkzeug as xyz
 
 from flask import (Flask, render_template, redirect, request, flash, session)
@@ -192,7 +194,6 @@ def search_artists(user_id):
                         return redirect(f"/artists/{user_id}")
                 
 
-
 @app.route('/artists-delete/<artist>', methods=["POST"])
 def delete_artist(artist):
         """Unfollow an artist that a user follows"""
@@ -261,6 +262,7 @@ def about():
 
         return render_template("about.html")
 
+
 @app.route('/settings/<int:user_id>', methods=["GET"])
 def settings(user_id):
         """User account settings"""
@@ -271,6 +273,54 @@ def settings(user_id):
 
         if user_id:
                 return render_template("settings.html", user=user)
+        else:
+                flash("You are not logged in")
+                return redirect("/")
+
+
+@app.route('/settings/<int:user_id>', methods=["POST"])
+def settings_post(user_id):
+        """Change user account email or password"""
+
+        user_id = session.get("user_id")
+
+        if user_id:
+                email = request.form["email"]
+                password = request.form["password"]
+                repassword = request.form["repassword"]
+
+                user = User.query.filter_by(user_id=user_id).first()
+
+                if email != "" and password == "" and repassword == "":
+                        check_email = User.query.filter_by(email=email).first()
+                        if check_email == None:
+                                user.email = email
+
+                                db.session.commit()
+                                flash(f"User email changed to {email}")
+                                return redirect(f"/settings/{user_id}")
+                        else:  
+                                if user.email == email:
+                                        flash("That's already your email address")
+                                        return redirect(f"/settings/{user_id}")
+                                else:
+                                        flash(f"It looks like {email} is already taken")
+                                        return redirect(f"/settings/{user_id}")
+                elif password == repassword and email == "":
+                        password_hashed = xyz.security.generate_password_hash(password, method='pbkdf2:sha256', salt_length=8)
+
+                        user.password = password_hashed
+
+                        db.session.commit()
+
+                        flash(f"User {email} password changed")
+                        return redirect(f"/settings/{user_id}")
+                elif password != repassword and email == "":
+                        flash("It looks like those passwords did not match")
+                        return redirect(f"/settings/{user_id}")
+                else:
+                        flash("Something wasn't filled out right here...")
+                        return redirect(f"/settings/{user_id}")
         else:
                 flash("You are not logged in")
                 return redirect("/")
