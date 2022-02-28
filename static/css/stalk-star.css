@@ -55,7 +55,7 @@ p {
 }
 
 #signup, #signin, #updatefollowings, #signout {
-  background-color: #FDB833;
+  background-color: #ffaa00f9;
   height: 100px;
   width: 200px;
   border-radius: 5px;
@@ -191,7 +191,7 @@ a {
 }
 
 .buttons {
-  background-color: #FDB833;
+  background-color: #ffaa00f7;
   color: whitesmoke;
   border-radius: 5px;
   text-decoration: none;
@@ -261,7 +261,7 @@ form {
 }
 
 #add-artist {
-  background-color: #FDB833;
+  background-color: #ffaa00f1;
   height: 80px;
   width: 170px;
   border-radius: 5px;
