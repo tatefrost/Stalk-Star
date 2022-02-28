@@ -247,7 +247,7 @@ form {
   flex-direction: column;
   justify-self: center;
   align-items: center;
-  margin-top: 10%;
+  margin-top: 30%;
 }
 
 #searchartistsbox, #filterform, #addform, #addsearch {
@@ -304,9 +304,11 @@ h4 {
 #settings-box {
   margin-top: 10%;
   width: 400px;
-  height: 500px;
+  height: 300px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 #settings-banner {
