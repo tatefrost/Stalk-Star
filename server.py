@@ -330,7 +330,7 @@ def settings_post(user_id):
 
 if __name__ == "__main__":
         # Must set debug=True for when DebugToolbarExtension is invoked 
-        app.debug = True
+        app.debug = False
 
         app.jinja_env.auto_reload = app.debug
         
