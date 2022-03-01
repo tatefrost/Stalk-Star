@@ -5,6 +5,9 @@ This app was created utilizing Python for the interactivity, Flask for server fu
 
 ![Stalk-Star-image](https://github.com/tatefrost/img-stalk-star/blob/main/Screen%20Shot%202022-02-27%20at%202.57.25%20PM.png?raw=true)
 
+## Deployed link
+http://stalk-star.herokuapp.com/
+
 ## Technologies used
 * Python
 
@@ -21,3 +24,5 @@ This app was created utilizing Python for the interactivity, Flask for server fu
 
 ## Author
 Tate Frost, software engineer located in Salt Lake City, Utah. 
+
+
