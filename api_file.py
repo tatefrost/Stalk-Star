@@ -161,6 +161,22 @@ def send_new_song_email(updated_artists):
                         email(user_email)
 
 
+# Sends an email to a new user after they successfully sign up for an account
+def send_new_user_email(user_email):
+        port = 465  # For SSL
+        smtp_server = "smtp.gmail.com"
+        sender_email = "tf.test.development@gmail.com"  # My address
+        receiver_email = user_email  # Receiver address
+        password = tf_test_development
+        message = f"\
+        Subject: Welcome!\n\n This message is sent from Stalk Star, thank you for joining our service! If you would  like to change your email, you may sign in to the site and change it under account settings. We look forward to helping you be the first to hear your favorite artist's great new tracks!"
+
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+                server.login(sender_email, password)
+                server.sendmail(sender_email, receiver_email, message)
+
+
 
 if __name__ == "__main__":
         # connect_to_db(app)

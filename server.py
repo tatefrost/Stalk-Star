@@ -54,6 +54,9 @@ def signup_submit():
                 db.session.add(new_user)
                 db.session.commit()
 
+                # sends a welcome email to new users
+                ytapi.send_new_user_email(email)
+
                 flash(f"User {email} added")
                 return redirect("/signin")
         elif password != password_repeat or user_is_in_db:
