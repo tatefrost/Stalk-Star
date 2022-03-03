@@ -8,6 +8,9 @@ This app was created utilizing Python for the interactivity, Flask for server fu
 ## Deployed link
 http://stalk-star.herokuapp.com/
 
+## Video Demo link 
+https://youtu.be/V93_lO2g_yw
+
 ## Technologies used
 * Python
 
