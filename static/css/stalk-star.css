@@ -179,10 +179,10 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 80px;
+  align-items: center;
 }
 
-#repassword {
+#repassword, #emailform {
   width: 90px;
 }
 
@@ -190,7 +190,13 @@ a {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+}
+
+#emailform {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .buttons {
